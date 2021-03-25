@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "CommonJS",
+    "lib": ["es5", "es6"],
+    "allowJs": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "removeComments": true,
+    "noEmit": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@controllers/*": ["src/app/controllers/*"],
+      "@models/*": ["src/app/models/*"],
+      "@midlewares/*": ["src/app/midlewares/*"],
+      "@validators/*": ["src/app/validators/*"],
+      "@config/*": ["src/app/config/*"],
+      "@routers/*": ["src/routers/*"],
+      "@views/*": ["src/views/*"],
+      "@database/*": ["src/database/*"],
+      "@interfaces/*": ["src/interfaces/*"]
+    },
+    "typeRoots": [
+      "./node_modules/@types",
+      "src/interfaces"
+    ],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
