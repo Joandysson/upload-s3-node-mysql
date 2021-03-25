@@ -20,7 +20,7 @@ export interface Env {
     JWT_TOKEN: string
 
     // Config MULTER
-    STORAGE_TYPE: 'local',
+    STORAGE_TYPE: 'local' | 's3',
     BUCKET_NAME: string,
     // Other
     [key: string]: string | undefined

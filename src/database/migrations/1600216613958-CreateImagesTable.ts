@@ -21,10 +21,18 @@ export class CreateImagesTable1600216613958 implements MigrationInterface {
         {
           name: 'type',
           type: 'varchar',
-          isUnique: true
+          isNullable: true
         },
         {
-          name: 'avatar',
+          name: 'key',
+          type: 'varchar'
+        },
+        {
+          name: 'size',
+          type: 'double'
+        },
+        {
+          name: 'url',
           type: 'varchar',
           isNullable: true
         },

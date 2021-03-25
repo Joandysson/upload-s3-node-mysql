@@ -17,7 +17,7 @@ module.exports = {
         '@models': './src/app/models',
         '@midlewares': './src/app/midlewares',
         '@validators': './src/app/validators',
-        '@config': './src/app/config',
+        '@config': './src/config',
         '@routers': './src/routers',
         '@views': './src/views',
         '@database': './src/database',

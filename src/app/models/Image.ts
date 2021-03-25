@@ -20,7 +20,13 @@ export default class Image extends BaseEntity {
     public type: string;
 
     @Column({ type: 'varchar' })
-    public avatar?: string;
+    public key: string;
+
+    @Column({ type: 'double' })
+    public size: number;
+
+    @Column({ type: 'varchar' })
+    public url?: string;
 
     @CreateDateColumn({ name: 'created_at' })
     public createdAt: Date;

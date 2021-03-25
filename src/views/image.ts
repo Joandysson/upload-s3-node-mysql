@@ -5,7 +5,7 @@ export function renderCreateImage (image: Image| undefined) {
 
   return {
     name: image.name,
-    email: image.type,
-    phone: image.avatar
+    type: image.type,
+    size: image.size
   }
 }
