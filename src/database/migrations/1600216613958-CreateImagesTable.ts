@@ -24,7 +24,7 @@ export class CreateImagesTable1600216613958 implements MigrationInterface {
           isNullable: true
         },
         {
-          name: 'key',
+          name: 'filename',
           type: 'varchar'
         },
         {

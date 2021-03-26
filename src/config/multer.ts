@@ -11,17 +11,16 @@ interface File extends Express.Multer.File {
   key: string
 }
 
-const {
-  STORAGE_TYPE,
-  BUCKET_NAME
-} = process.env as Env
+const { STORAGE_TYPE, BUCKET_NAME } = process.env as Env
 
 const local = multer.diskStorage({
   destination: (_, __, cb) => {
     cb(null, path.resolve(__dirname, '..', 'tmp', 'uploads'))
   },
-  filename: (_, file: File, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`)
+  filename: (_, file:File, cb) => {
+    file.key = `${Date.now()}-${file.originalname}`
+
+    cb(null, file.key)
   }
 })
 

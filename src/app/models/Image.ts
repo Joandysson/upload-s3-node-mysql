@@ -1,3 +1,4 @@
+import { Env } from '@interfaces/IEnv'
 import {
   BaseEntity,
   Entity,
@@ -5,8 +6,14 @@ import {
   CreateDateColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  DeleteDateColumn
+  DeleteDateColumn,
+  BeforeInsert,
+  BeforeRemove
 } from 'typeorm'
+import aws from 'aws-sdk'
+import path from 'path'
+import { promisify } from 'util'
+import fs from 'fs'
 
 @Entity('images')
 export default class Image extends BaseEntity {
@@ -20,7 +27,7 @@ export default class Image extends BaseEntity {
     public type: string;
 
     @Column({ type: 'varchar' })
-    public key: string;
+    public filename: string;
 
     @Column({ type: 'double' })
     public size: number;
@@ -36,4 +43,24 @@ export default class Image extends BaseEntity {
 
     @DeleteDateColumn({ name: 'deleted_at' })
     public deletedAt: Date;
+
+    @BeforeInsert()
+    async verifyUrl () {
+      const { HOST, PORT } = process.env as Env
+      this.url = this.url ? this.url : `${HOST}:${PORT}/files/${this.filename}`
+    }
+
+    @BeforeRemove()
+    async removeS3 () {
+      const { STORAGE_TYPE, BUCKET_NAME } = process.env as Env
+      const s3 = new aws.S3()
+      if (STORAGE_TYPE === 's3') {
+        return s3.deleteObject({
+          Bucket: BUCKET_NAME,
+          Key: this.filename
+        }).promise()
+      }
+
+      return promisify(fs.unlink)(path.resolve(__dirname, '..', '..', 'tmp', 'uploads', this.filename))
+    }
 }

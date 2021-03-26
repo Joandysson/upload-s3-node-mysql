@@ -1,22 +1,42 @@
-import { Request, Response } from 'express'
+import { Request, Response, Express } from 'express'
 import Image from '@models/Image'
-class ImageController {
-  async index () {
-    const image = new Image()
+import { renderImage, renderListImage } from '@views/image'
 
-    return image
+interface File extends Express.Multer.File {
+  key: string,
+  location: string
+}
+
+class ImageController {
+  async index (_: Request, response: Response) {
+    const images = await Image.find()
+    return response.json(renderListImage(images))
   }
 
   async store (request: Request, response: Response) {
-    Image.create({
-      name: request.file.originalname,
+    const { originalname: name, size, key: filename, location: url = '' } = request.file as File
+
+    const image = await Image.create({
+      name,
       type: '',
-      key: request.file.filename,
-      size: request.file.size,
-      url: ''
+      filename,
+      size,
+      url
     }).save()
 
-    response.json('ok')
+    response.json(renderImage(image))
+  }
+
+  async delete (request: Request, response: Response) {
+    const { id } = request.params
+
+    const image = await Image.findOne(id)
+
+    if (!image) return response.status(404).json('image not found')
+
+    await image.remove()
+
+    response.send()
   }
 }
 
