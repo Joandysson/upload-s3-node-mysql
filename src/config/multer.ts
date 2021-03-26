@@ -46,7 +46,7 @@ const storageTypes: {[key: string]: multer.StorageEngine } = {
 }
 
 const options: Options = {
-  dest: path.resolve(__dirname, '..', '..', 'tmp', 'uploads'),
+  dest: path.resolve(__dirname, '..', 'tmp', 'uploads'),
   storage: storageTypes[STORAGE_TYPE],
   limits: {
     fileSize: 2 * 1024 * 1024

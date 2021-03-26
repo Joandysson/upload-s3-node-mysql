@@ -17,7 +17,8 @@ app.use(cors({
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp', 'uploads')))
+
+app.use('/files', express.static(path.resolve(__dirname, 'tmp', 'uploads')))
 app.use('/api/v1', routers)
 app.use(errorHandler)
 

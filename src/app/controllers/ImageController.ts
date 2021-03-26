@@ -24,7 +24,7 @@ class ImageController {
       url
     }).save()
 
-    response.json(renderImage(image))
+    return response.status(201).json(renderImage(image))
   }
 
   async delete (request: Request, response: Response) {
