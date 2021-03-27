@@ -1,7 +1,7 @@
 import express from 'express'
 import 'express-async-errors'
 import routers from '@routers/index'
-import errorHandler from './app/errors/handler'
+// import errorHandler from './app/errors/handler'
 import cors from 'cors'
 import path from 'path'
 import '@database/connect'
@@ -20,6 +20,6 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use('/files', express.static(path.resolve(__dirname, 'tmp', 'uploads')))
 app.use('/api/v1', routers)
-app.use(errorHandler)
+// app.use(errorHandler)
 
 app.listen(PORT, () => console.log('api', `server ${HOST}:${PORT}`))
