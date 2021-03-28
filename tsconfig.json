@@ -17,6 +17,7 @@
       "@models/*": ["src/app/models/*"],
       "@midlewares/*": ["src/app/midlewares/*"],
       "@validators/*": ["src/app/validators/*"],
+      "@utils/*": ["src/app/utils/*"],
       "@config/*": ["src/config/*"],
       "@routers/*": ["src/routers/*"],
       "@views/*": ["src/views/*"],

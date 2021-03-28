@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import multer, { Options } from 'multer'
+import multer, { MulterError, Options } from 'multer'
 import path from 'path'
 import crypto from 'crypto'
 import aws from 'aws-sdk'
@@ -63,7 +63,8 @@ const options: Options = {
     if (allowedMimes.includes(file.mimetype)) {
       cb(null, true)
     } else {
-      cb(new Error('Invalid file type.'))
+      cb(new MulterError('LIMIT_UNEXPECTED_FILE', 'Invalid file type.'))
+      // cb(new Error('Invalid file type.'))
     }
   }
 }
