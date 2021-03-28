@@ -47,14 +47,16 @@ export default class Image extends BaseEntity {
 
     @BeforeInsert()
     async verifyUrl () {
-      const { HOST, PORT } = process.env as Env
-      this.url = this.url ?? `${HOST}:${PORT}/files/${this.filename}`
+      const { HOST, PORT, STORAGE_TYPE } = process.env as Env
+      this.url = this.url || `${HOST}:${PORT}/files/${this.filename}`
 
-      const labels = await this.detectImage()
-      console.log(labels)
-      if (!labels) return
+      if (STORAGE_TYPE === 's3') {
+        const labels = await this.detectImage()
+        console.log(labels)
+        if (!labels) return
 
-      this.type = await verifyLabelType(labels)
+        this.type = await verifyLabelType(labels)
+      }
     }
 
     async detectImage (): Promise<(string | undefined)[] | undefined> {
